@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOGS_ABSOLUTE_PATH" value="./logs" />
+<!--위는 파일 경로를 만들 것. logs파일이 생김. 아래는 로그 찍히는 패턴! -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+<!--파일로 저장할때의 모습. 어디 파일에 저장을 할거냐. 패턴은 어떻게 찍어라.-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_ABSOLUTE_PATH}/logback.log</file>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_ABSOLUTE_PATH}/logback.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+<!--어떤 범위까지 로그가 찍히게 할 것인가? error인 경우 제일 많이 찍힌다.
+    스탠다드 아웃풋으로 다 찍힐 것. -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+<!--웹에플리케이션으로 실행하는 것에 대해서는 스탠다드 아웃풋으로 내보내고, 파일로도 내보내자-->
+    <logger name="org.springframework.web" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </logger>
+    <!--
+    <logger name="jdbc" level="OFF" />
+	<logger name="jdbc.sqlonly" level="DEBUG" />
+	<logger name="jdbc.sqltiming" level="DEBUG" />
+	<logger name="jdbc.audit" level="OFF" />
+	<logger name="jdbc.resultset" level="DEBUG" />
+	<logger name="jdbc.resultsettable" level="DEBUG" />
+	<logger name="jdbc.connection" level="OFF" />
+	-->
+    <!-- INFO(trace > debug > info > warn > error)  -->
+</configuration>
