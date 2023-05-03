@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--DAO 연결 완료-->
+<mapper namespace="com.kbstar.mapper.MarkerDescMapper">
+
+<!--작성예시. CustMapper(는,kbmapper 인터페이스에서 상속받았지) 에서 사용할 함수들의 명칭이 아래 적힌다. -->
+
+    <select id="getmarkerdesc" parameterType="Integer" resultType="markerdesc">
+        SELECT * FROM markerdesc WHERE marker_id=#{markerid}
+    </select>
+    <select id="select" parameterType="Integer" resultType="markerdesc">
+        SELECT * FROM markerdesc WHERE id=#{id}
+    </select>
+    <select id="selectall" resultType="markerdesc">
+        SELECT * FROM markerdesc
+    </select>
+    <insert id="insert" parameterType="markerdesc">
+        INSERT INTO markerdesc VALUES (markerdesc_seq.NEXTVAL,#{marker_id},#{item},#{price},#{imgname})
+    </insert>
+    <!-- id제외, 6가지 칼럼 수정 가능 -->
+    <update id="update" parameterType="markerdesc">
+        UPDATE markerdesc SET marker_id=#{marker_id},item=#{item},price=#{price},imgname=#{imgname} WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM markerdesc WHERE id=#{id}
+    </delete>
+
+</mapper>

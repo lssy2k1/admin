@@ -2,19 +2,16 @@ package com.kbstar.dto;
 
 import lombok.*;
 
-import java.util.Date;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
 
-public class Item {
+public class MarkerDesc {
     private int id;
-    private String name;
+    private int marker_id;
+    private String item;
     private int price;
     private String imgname;
-    private Date rdate;
-
 }

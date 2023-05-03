@@ -1,8 +1,8 @@
 <script>
   $(function(){
     chart01.init('c1');
-    setTimeout(() => chart01.init('c2'), 50);
-    setTimeout(() => chart01.init('c3'), 100);
+    setTimeout(() => chart01.init('c2'), 150);
+    setTimeout(() => chart01.init('c3'), 300);
     //chart02.init('c2');
     //chart03.init('c2');
   });
