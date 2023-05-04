@@ -37,6 +37,8 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f15191dfbc91ce9a8cbdd265aeabcf7e"></script>
+
 </head>
 
 <body id="page-top">
@@ -73,7 +75,7 @@
             Interface
         </div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
+        <!-- Nav Cust - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
@@ -102,6 +104,24 @@
                     <h6 class="collapse-header">Item Managements:</h6>
                     <a class="collapse-item" href="/item/add">ADD</a>
                     <a class="collapse-item" href="/item/all">ALL</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Marker - Utilities Collapse Menu -->
+<%--        data target, aria id도 수정해주자.    --%>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#marker_mgt"
+               aria-expanded="true" aria-controls="marker_mgt">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Marker</span>
+            </a>
+            <div id="marker_mgt" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Marker Managements:</h6>
+                    <a class="collapse-item" href="/marker/add">ADD</a>
+                    <a class="collapse-item" href="/marker/all">ALL</a>
                 </div>
             </div>
         </li>
