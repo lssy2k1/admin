@@ -1,6 +1,7 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Item;
+import com.kbstar.dto.ItemSearch;
 import com.kbstar.service.ItemService;
 import com.kbstar.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -74,4 +75,15 @@ public class ItemController {
         itemService.remove(id);
         return "redirect:/item/all";
     }
+
+    @RequestMapping("/search")
+    public String search(Model model, ItemSearch ms) throws Exception{
+        List<Item> list = null;
+        list = itemService.search(ms);
+        model.addAttribute("ms", ms);
+        model.addAttribute("ilist", list);
+        model.addAttribute("center", dir+"all");
+        return "index";
+    }
 }
+

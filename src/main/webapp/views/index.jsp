@@ -38,6 +38,9 @@
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f15191dfbc91ce9a8cbdd265aeabcf7e"></script>
+<%--    웹소켓 사용할게   --%>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
 </head>
 
@@ -174,6 +177,14 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>live chart</span></a>
         </li>
+
+        <c:if test="${loginadm !=null}">
+            <li class="nav-item">
+                <a class="nav-link" href="/websocket">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>websocket</span></a>
+            </li>
+        </c:if>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 

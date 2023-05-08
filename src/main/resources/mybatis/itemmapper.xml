@@ -25,5 +25,22 @@
     <delete id="delete" parameterType="Integer">
         DELETE FROM item WHERE id=#{id}
     </delete>
+    <select id="search" parameterType="itemSearch" resultType="item">
+        SELECT * FROM item
+        <where>
+            <if test="startdate != null and !startdate.equals('') ">
+                rdate &gt;= TO_DATE(#{startdate},'YYYY-MM-DD')
+            </if>
+            <if test="enddate != null and !enddate.equals('')">
+                AND   rdate &lt;= TO_DATE(#{enddate},'YYYY-MM-DD')+0.9999
+            </if>
+            <if test="name != null and !name.equals('') ">
+                AND name LIKE '%'||#{name}||'%'
+            </if>
+            <if test="price != null and !price.equals('') ">
+                AND price &gt; #{price}
+            </if>
+        </where>
+    </select>
 <!--인터페이스에 없는데 xml에 있으면 오류나!!!!!-->
 </mapper>

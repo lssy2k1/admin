@@ -4,8 +4,8 @@
 
 <style>
     #marker_map > #map{
-        width : 500px;
-        height : 500px;
+        width : 600px;
+        height : 400px;
         border : 2px solid red;
     }
 </style>
@@ -37,7 +37,7 @@
             this.display();
         },
         display: function () {
-            var mapContainer = document.querySelector('#marker_map > #map');
+            var mapContainer = document.querySelector('#map');
             var mapOption = {
                 center: new kakao.maps.LatLng(${marker.lat}, ${marker.lng}),
                 level: 8
@@ -54,33 +54,31 @@
             });
             marker.setMap(map);
 /////
-            var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-            var imageSize = new kakao.maps.Size(20, 30);
-            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-            var markerPosition = new kakao.maps.LatLng(${marker.lat}, ${marker.lng});
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: markerPosition,
-                title : ${marker.title},
-                image : markerImage
-            });
+<%--            var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";--%>
+<%--            var imageSize = new kakao.maps.Size(20, 30);--%>
+<%--            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);--%>
+<%--            var markerPosition = new kakao.maps.LatLng(${marker.lat}, ${marker.lng});--%>
+<%--            var marker = new kakao.maps.Marker({--%>
+<%--                map: map,--%>
+<%--                position: markerPosition,--%>
+<%--                title : ${marker.title},--%>
+<%--                image : markerImage--%>
+<%--            });--%>
 /////
-<%--            var iwContent = '<h2>'+"${marker.title}"+'</h2>';--%>
-<%--            iwContent += '<img src="/img/${marker.img} style="width:50px">';--%>
+            var iwContent = '<img src = "/img/a.jpg" style = "width:50px"><div style="padding:5px;">hello world</div>';
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent
+            });
 
-<%--            var infowindow = new kakao.maps.InfoWindow({--%>
-<%--                position : markerPosition,--%>
-<%--                content : iwContent--%>
-<%--            });--%>
-<%--            kakao.maps.event.addListener(marker, 'mouseover', () => {--%>
-<%--                infowindow.open(map,marker);--%>
-<%--            });--%>
-<%--            kakao.maps.event.addListener(marker, 'mouseout', () => {--%>
-<%--                infowindow.close();--%>
-<%--            });--%>
-<%--            kakao.maps.event.addListener(marker, 'click', () => {--%>
-<%--                location.href = '/marker/detail?id='+${marker.target};--%>
-<%--            });--%>
+            kakao.maps.event.addListener(marker, 'mouseover', function() {
+                infowindow.open(map, marker);
+            });
+            kakao.maps.event.addListener(marker, 'mouseout', function() {
+                infowindow.close();
+            });
+            kakao.maps.event.addListener(marker, 'click', function() {
+                location.href='${market.target}';
+            });
         }
     };
     $(function(){
@@ -88,6 +86,7 @@
         marker_map.init();
     })
 </script>
+
 <%--heading----------------------------------------%>
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Marker Detail</h1>
@@ -162,10 +161,14 @@
             <div id="container">
             </div>
 <%--            지도--------------------------------------------------%>
-            <div class="col-sm-8 text-left">
-                <div class="container" id = "marker_map">
-                    <h3>MARKER MAP</h3>
-                    <div id = "map"></div>
+            <div class = "card body">
+                <div class = "row">
+                    <div class="col-sm-8 text-left">
+                        <div class="container" id = "marker_map">
+                            <h3>MARKER MAP</h3>
+                            <div id = "map"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
