@@ -23,12 +23,10 @@ public class SalesService implements KBService<String, Sales> {
 
     @Override
     public void remove(String s) throws Exception {
-
     }
 
     @Override
     public void modify(Sales sales) throws Exception {
-
     }
 
     @Override
@@ -39,5 +37,11 @@ public class SalesService implements KBService<String, Sales> {
     @Override
     public List<Sales> get() throws Exception {
         return mapper.selectall();
+    }
+    public List<Integer> getMonthlyPrice() {
+        return mapper.getmonthlyprice();
+    }
+    public List<Integer> getGenderPrice(String gender) {
+        return mapper.getgenderprice(gender);
     }
 }

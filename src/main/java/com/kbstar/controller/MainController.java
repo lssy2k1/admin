@@ -4,6 +4,7 @@ import com.kbstar.dto.Adm;
 import com.kbstar.dto.Cust;
 import com.kbstar.service.AdmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +15,16 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
+    @Value("${adminserver}")
+    String adminserver;
     @Autowired
     AdmService admService;
     @Autowired
     private BCryptPasswordEncoder encoder;
 
     @RequestMapping("/")
-    public String main() {
+    public String main(Model model) {
+        model.addAttribute("adminserver",adminserver);
         return "index";
     }
 
@@ -32,6 +36,7 @@ public class MainController {
 
     @RequestMapping("/livechart")
     public String livechart(Model model) {
+        model.addAttribute("adminserver",adminserver);
         model.addAttribute("center", "livechart");
         return "index";
     }
@@ -91,6 +96,7 @@ public class MainController {
 
     @RequestMapping("/websocket")
     public String websocket(Model model){
+        model.addAttribute("adminserver",adminserver);
         model.addAttribute("center", "websocket");
         return "index";
     }

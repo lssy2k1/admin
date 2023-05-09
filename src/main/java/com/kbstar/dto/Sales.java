@@ -16,5 +16,6 @@ public class Sales {
     private String rdate;
     private int price;
     private String gender;
+
 }
 

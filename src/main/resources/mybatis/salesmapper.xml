@@ -11,5 +11,17 @@
     <insert id="insert" parameterType="sales">
         INSERT INTO sales VALUES (TO_DATE(#{rdate}, 'YYYY-MM-DD'),#{price},#{gender})
     </insert>
-
+    <select id="getmonthlyprice" resultType="Integer">
+        SELECT SUM(price), rdate
+        FROM sales
+        GROUP BY rdate
+        ORDER BY rdate
+    </select>
+    <select id="getgenderprice" parameterType="String" resultType="Integer">
+        select sum(price), rdate
+        from sales
+        where gender = UPPER(#{gender})
+        group by rdate
+        order by rdate
+    </select>
 </mapper>

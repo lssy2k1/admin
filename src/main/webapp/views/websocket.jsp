@@ -49,13 +49,19 @@
         },
         connect:function(){
             var sid = this.id;
-            var socket = new SockJS('http://127.0.0.1:8088/ws');
+            var socket = new SockJS('${adminserver}/ws');
+            // SockJS는 웹소켓을 지원하지 않는 브라우저에서도 웹소켓과 유사한 방식으로 통신할 수 있게 해주는 js라이브러리
             this.stompClient = Stomp.over(socket);
+            // Stomp는 웹소켓 프로토콜을 사용하는 메시징 서비스를 제공.(Simple Text Oriented Messaging Protocol)
 
             this.stompClient.connect({}, function(frame) {
+                //첫 번째 매개변수는 연결 설정 객체, STOMP 메시지 브로커와의 인증을 위한 정보를 제공합니다.
+                //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
                 websocket.setConnected(true);
                 console.log('Connected: ' + frame);
                 this.subscribe('/send', function(msg) {
+                    //두번째 매개변수 function(msg)는
+                    //메시지가 도착했을 때 호출할 콜백 함수입니다. 이 함수는 서버에서 보낸 메시지를 전달받습니다
                     $("#all").prepend(
                         "<h4>" + JSON.parse(msg.body).sendid +":"+
                         JSON.parse(msg.body).content1
@@ -95,6 +101,8 @@
             });
             this.stompClient.send("/receiveall", {}, msg);
         },
+        //sendid와 content1 데이터를 JSON.stringify로 JSON객체로 만들고 msg 변수에 대입.
+        //stompClient.send로 정보 전송. 받을 주소는 /receiveall, 헤더는 공백, 데이터는 msg
         sendTo:function(){
             var msg = JSON.stringify({
                 'sendid' : this.id,
@@ -120,12 +128,12 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Live Chart</h1>
+    <h1 class="h3 mb-2 text-gray-800">WebSocket</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Live Chart</h6>
+            <h6 class="m-0 font-weight-bold text-primary">WebSocket</h6>
         </div>
         <div class="card-body">
             <div id="container"></div>

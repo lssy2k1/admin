@@ -18,6 +18,7 @@ import java.util.List;
 public class CustController {
     String dir = "cust/";
 
+
     @Autowired
     BCryptPasswordEncoder encoder;
     @Autowired

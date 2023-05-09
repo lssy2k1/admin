@@ -4,6 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.CartMapper">
 
+    <select id="getallprice" resultType = "int">
+        select sum(c.cnt * i.price)
+        from cart c, item i
+        where c.item_id = i.id
+    </select>
     <select id="select" parameterType="Integer" resultType="cart">
         SELECT c.id, c.cust_id, c.item_id, c.cnt, c.rdate, cu.name AS cust_name, it.name AS item_name, it.price AS item_price, it.imgname AS item_imgname
         FROM cart c, cust cu, item it

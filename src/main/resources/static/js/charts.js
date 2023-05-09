@@ -1,3 +1,123 @@
+let center_chart01 = {
+    cc: null,
+    stompClient:null,
+    init: (cc) => {
+        center_chart01.cc = cc;
+        center_chart01.getdata(cc);
+    },
+//     connect:function(){
+//     var sid = this.id;
+//     var socket = new SockJS('${adminserver}/wss');
+//     this.stompClient = Stomp.over(socket);
+//     this.stompClient.connect({}, function(frame) {
+//
+//         console.log('Connected: ' + frame);
+//
+//         this.subscribe('/sendadm', function(msg) {
+//             // $('#content1_msg').text(JSON.parse(msg.body).price);
+//         });
+//     });
+// },
+    getdata:(cc) =>{
+        $.ajax({
+            url:'/centerchart01',
+            success: (result) => {
+                // alert(result);
+                center_chart01.display(result);
+            }
+        });
+    },
+    display:(result)=>{
+        Highcharts.chart(center_chart01.cc, {
+            title: {
+                text: '월별 매출액 추이'
+            },
+            xAxis: {
+                tickInterval: 1,
+                type: 'logarithmic',
+                accessibility: {
+                    rangeDescription: 'Range: 1 to 10'
+                }
+            },
+            yAxis: {
+                type: 'logarithmic',
+                minorTickInterval: 0.1,
+                accessibility: {
+                    rangeDescription: 'Range: 0.1 to 1000'
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br />',
+                pointFormat: 'x = {point.x}, y = {point.y}'
+            },
+            series: [{
+                data: result,
+                pointStart: 1
+            }]
+        });
+    }
+}
+
+let center_chart02 = {
+    cc:null,
+    init:(cc)=>{
+        center_chart02.cc = cc;
+        center_chart02.getdata(cc);
+    },
+    getdata : (cc)=>{
+        $.ajax({
+            url:'/centerchart02',
+            success: (result) => {
+                // alert(result);
+                center_chart02.display(result);
+            }
+        });
+    },
+    display : (result) => {
+        Highcharts.chart(center_chart02.cc, {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '월별 성별 매출 비중'
+            },
+            xAxis: {
+                categories: result.month
+                //['2021/22', '2020/21', '2019/20', '2018/19', '2017/18']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Assists'
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'percent'
+                }
+            },
+            series: result.price
+            // [{ { , }, { , }  } , ]
+            //     [{
+            //     name: 'Kevin De Bruyne',
+            //     data: [4, 4, 2, 4, 4]
+            // }, {
+            //     name: 'Joshua Kimmich',
+            //     data: [0, 4, 3, 2, 3]
+            // }, {
+            //     name: 'Sadio Mané',
+            //     data: [1, 2, 2, 1, 2]
+            // }]
+        });
+
+    }
+}
+// 0509 워크샵 ======================================================================================
+
 let chart01 = {
     cc:null,
     init: (cc) =>{

@@ -44,4 +44,7 @@ public class CartService implements KBService<Integer, Cart> {
     public List<Cart> getmycart(String cid) throws Exception{
         return mapper.getmycart(cid);
     }
+    public int getallprice() throws Exception{
+        return mapper.getallprice();
+    }
 }
