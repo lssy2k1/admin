@@ -17,53 +17,53 @@ public class ChartImplController {
     @Autowired
     SalesService salesService;
 
-    @Scheduled(cron = "*/5 * * * * *")
-    @RequestMapping("/centerchart01")
-    public Object centerchart01() throws Exception {
-        List<Integer> list = salesService.getMonthlyPrice();
-        JSONArray jaTotalPrice = new JSONArray();
-        for (Integer obj: list){
-            jaTotalPrice.add(obj);
-        }
-        return jaTotalPrice;
-    }
-    @Scheduled(cron = "*/5 * * * * *")
-    @RequestMapping("/centerchart02")
-    public Object centerchart02() throws Exception {
-        List<Integer> listM = salesService.getGenderPrice("M");
-        List<Integer> listF = salesService.getGenderPrice("F");
-        List<Sales> salesList = salesService.get();
-
-        JSONObject jo = new JSONObject();
-        JSONArray jaGender = new JSONArray();
-        JSONArray jaMonth = new JSONArray();
-        JSONArray jaM = new JSONArray();
-        JSONArray jaF = new JSONArray();
-        JSONObject joM = new JSONObject();
-        JSONObject joF = new JSONObject();
-        for(Sales obj: salesList){
-            jaMonth.add(obj.getRdate());
-        }
-        for(Integer obj:listM){
-            jaM.add(obj);
-        }
-        for(Integer obj:listF){
-            jaF.add(obj);
-        }
-        joM.put("name", "Male");
-        joM.put("data", jaM);
-
-        joF.put("name", "FeMale");
-        joF.put("data", jaF);
-
-        jaGender.add(joM);
-        jaGender.add(joF);
-
-        jo.put("month", jaMonth);
-        jo.put("price", jaGender);
-
-        return jo;
-    }
+//    @Scheduled(cron = "*/5 * * * * *")
+//    @RequestMapping("/centerchart01")
+//    public Object centerchart01() throws Exception {
+//        List<Integer> list = salesService.getMonthlyPrice();
+//        JSONArray jaTotalPrice = new JSONArray();
+//        for (Integer obj: list){
+//            jaTotalPrice.add(obj);
+//        }
+//        return jaTotalPrice;
+//    }
+//    @Scheduled(cron = "*/5 * * * * *")
+//    @RequestMapping("/centerchart02")
+//    public Object centerchart02() throws Exception {
+//        List<Integer> listM = salesService.getGenderPrice("M");
+//        List<Integer> listF = salesService.getGenderPrice("F");
+//        List<Sales> salesList = salesService.get();
+//
+//        JSONObject jo = new JSONObject();
+//        JSONArray jaGender = new JSONArray();
+//        JSONArray jaMonth = new JSONArray();
+//        JSONArray jaM = new JSONArray();
+//        JSONArray jaF = new JSONArray();
+//        JSONObject joM = new JSONObject();
+//        JSONObject joF = new JSONObject();
+//        for(Sales obj: salesList){
+//            jaMonth.add(obj.getRdate());
+//        }
+//        for(Integer obj:listM){
+//            jaM.add(obj);
+//        }
+//        for(Integer obj:listF){
+//            jaF.add(obj);
+//        }
+//        joM.put("name", "Male");
+//        joM.put("data", jaM);
+//
+//        joF.put("name", "FeMale");
+//        joF.put("data", jaF);
+//
+//        jaGender.add(joM);
+//        jaGender.add(joF);
+//
+//        jo.put("month", jaMonth);
+//        jo.put("price", jaGender);
+//
+//        return jo;
+//    }
     @RequestMapping("/chartImpl01")
     public Object chartImpl01(){
         JSONArray jaa = new JSONArray();

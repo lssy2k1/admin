@@ -38,10 +38,10 @@ public class SalesService implements KBService<String, Sales> {
     public List<Sales> get() throws Exception {
         return mapper.selectall();
     }
-    public List<Integer> getMonthlyPrice() {
-        return mapper.getmonthlyprice();
-    }
-    public List<Integer> getGenderPrice(String gender) {
-        return mapper.getgenderprice(gender);
-    }
+//    public List<Integer> getMonthlyPrice() {
+//        return mapper.getmonthlyprice();
+//    }
+//    public List<Integer> getGenderPrice(String gender) {
+//        return mapper.getgenderprice(gender);
+//    }
 }

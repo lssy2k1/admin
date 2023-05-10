@@ -22,10 +22,10 @@ void contextLoads() {
 //        for(Integer obj:monthlyPrice){
 //            log.info(obj + "");
 //        }
-        List<Integer> serviceGenderPrice = service.getGenderPrice("m");
-        for(Integer obj:serviceGenderPrice){
-            log.info(obj + "");
-        }
+//        List<Integer> serviceGenderPrice = service.getGenderPrice("m");
+//        for(Integer obj:serviceGenderPrice){
+//            log.info(obj + "");
+//        }
     } catch (Exception e) {
         log.info("조회 에러......");
         e.printStackTrace();

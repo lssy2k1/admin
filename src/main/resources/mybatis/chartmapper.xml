@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.ChartMapper">
+
+    <select id="getMonthlyTotal" resultType="Chart">
+        <![CDATA[
+        select TO_NUMBER(TO_CHAR(rdate, 'MM')) AS month, gender, SUM(price) AS total
+        from sales
+        group by TO_CHAR(rdate, 'MM'), gender
+        order by 1
+        ]]>
+    </select>
+
+</mapper>
