@@ -1,13 +1,16 @@
 <script>
   let websocket_center = {
     stompClient:null,
+
     init:function(){
       this.connect();
     },
+
     connect:function(){
       var sid = this.id;
       var socket = new SockJS('${adminserver}/wss');
       this.stompClient = Stomp.over(socket);
+
       this.stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
         this.subscribe('/sendadm', function(msg) {

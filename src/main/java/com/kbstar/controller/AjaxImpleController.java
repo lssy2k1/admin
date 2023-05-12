@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class AjaxImpleController {
+
     @Autowired
     ChartService chartService;
 

@@ -30,7 +30,7 @@
         id:null,
         stompClient:null,
         init:function(){
-            this.id = $('#adm_id').text();
+            this.id = $('#adm_id').text();//adm_id에서 적힌 글씨를 id로 뿌려줄 예정이다.
             $("#connect").click(function() {
                 websocket.connect();
             });
@@ -57,7 +57,7 @@
             this.stompClient.connect({}, function(frame) {
                 //첫 번째 매개변수는 연결 설정 객체, STOMP 메시지 브로커와의 인증을 위한 정보를 제공합니다.
                 //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
-                websocket.setConnected(true);
+                websocket.setConnected(true);//단순히 connected, disconnected 적히게 하는 함수.
                 console.log('Connected: ' + frame);
                 this.subscribe('/send', function(msg) {
                     //두번째 매개변수 function(msg)는
@@ -67,11 +67,13 @@
                         JSON.parse(msg.body).content1
                         + "</h4>");
                 });
+
                 this.subscribe('/send/'+sid, function(msg) {
                     $("#me").prepend(
                         "<h4>" + JSON.parse(msg.body).sendid +":"+
                         JSON.parse(msg.body).content1+ "</h4>");
                 });
+
                 this.subscribe('/send/to/'+sid, function(msg) {
                     $("#to").prepend(
                         "<h4>" + JSON.parse(msg.body).sendid +":"+

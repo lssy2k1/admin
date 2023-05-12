@@ -12,5 +12,5 @@
         order by 1
         ]]>
     </select>
-
+<!--             <![CDATA[ 내 용 들 ]]>               -->
 </mapper>
