@@ -12,19 +12,19 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer{
 
     @Value("${serviceserver}")
-    String serviceServer;
+    String serviceserver;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").setAllowedOrigins("http://127.0.0.1", serviceServer).withSockJS();
-        registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1").withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("http://127.0.0.1", serviceserver).withSockJS();
+        registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1", serviceserver).withSockJS();
         registry.addEndpoint("/wss").setAllowedOrigins("http://127.0.0.1").withSockJS();
     }
 //setAllowedOrigin은 127.0.0.1로 접속했던 브라우저도 소켓 사용가능하게 함.
     /* 어플리케이션 내부에서 사용할 path를 지정할 수 있음 */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/send","/sendadm");
+        registry.enableSimpleBroker("/send","/sendadm", "/chsend");
     }
     //각각 send, broadcast는 inbound, outbound
     // send는 클라이언트가 서버로 보낼 떄, broadcasat는 서버가 클라이언트로 보낼 때

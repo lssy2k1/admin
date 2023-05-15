@@ -101,5 +101,10 @@ public class MainController {
         return "index";
     }
 
-
+    @RequestMapping("/callcenter")
+    public String callcenter(Model model){
+        model.addAttribute("adminserver",adminserver);//어떠한 서버로 접속하는지! 중요함.
+        model.addAttribute("center", "callcenter");
+        return "index";
+    }
 }

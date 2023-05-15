@@ -177,6 +177,13 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>live chart</span></a>
         </li>
+        <c:if test="${loginadm !=null}">
+            <li class="nav-item">
+                <a class="nav-link" href="/callcenter">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>1:1</span></a>
+            </li>
+        </c:if>
 
         <c:if test="${loginadm !=null}">
             <li class="nav-item">
