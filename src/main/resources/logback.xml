@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOGS_ABSOLUTE_PATH" value="c://project/logs"/>
+    <property name="LOGS_ABSOLUTE_PATH" value="/root/logs"/>
+<!--    <property name="LOGS_ABSOLUTE_PATH" value="c://project/logs"/>-->
 <!--위는 파일 경로를 만들 것. logs파일이 생김. 아래는 로그 찍히는 패턴! -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
