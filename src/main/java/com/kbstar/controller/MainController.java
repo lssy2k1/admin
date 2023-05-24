@@ -42,15 +42,18 @@ public class MainController {
     }
 
     @RequestMapping("/login")
-    public String login(Model model) {
+    public String login(Model model, String redirectURL) {
+        model.addAttribute("redirectURL", redirectURL);
         model.addAttribute("center", "login");
         return "index";
     }
 
     @RequestMapping("/loginimpl")
-    public String loginimpl(Model model, String id, String pwd, HttpSession session) throws Exception {
+    public String loginimpl(Model model, String id, String pwd, String redirectURL,
+                            HttpSession session) throws Exception {
         Adm adm = null;
         String nextpage = "loginfail";
+
         try {
             adm = admService.get(id);
 
@@ -58,6 +61,11 @@ public class MainController {
                 nextpage = "loginok";
                 session.setMaxInactiveInterval(100000);
                 session.setAttribute("loginadm", adm);
+                if(redirectURL ==null || redirectURL.equals("")){
+                    return "redirect:/";
+                }else{
+                    return "redirect:"+redirectURL;
+                }
             }
         } catch (Exception e) {
             throw new Exception("loginimpl error");

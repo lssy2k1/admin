@@ -36,6 +36,7 @@
             <div id="container">
 
                 <form id = "login_form" class="form-horizontal">
+                    <input type = "hidden" name = "redirectURL" value = "${redirectURL}">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="id">id:</label>
                         <div class="col-sm-8">
