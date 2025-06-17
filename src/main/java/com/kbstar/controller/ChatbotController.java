@@ -8,7 +8,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
 
 @Controller
 public class ChatbotController {
@@ -16,7 +15,7 @@ public class ChatbotController {
     SimpMessagingTemplate template;
 
     @MessageMapping("/chatbotme") // 특정 Id에게 전송
-    public void chatbotme(Msg msg, SimpMessageHeaderAccessor headerAccessor) throws IOException {
+    public void chatbotme(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
         String target = msg.getSendid();
         String txt = msg.getContent1();//채팅하자 라고 msg에 넣은 것을 꺼낼게
         String result = ChatBotUtil.chat(txt);//꺼낸걸 chatbot에 넣어서 답변을 받을게
