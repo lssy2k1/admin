@@ -1,10 +1,4 @@
 package com.kbstar.util;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Base64;
 import java.util.Date;
 import javax.crypto.Mac;
@@ -12,61 +6,48 @@ import javax.crypto.spec.SecretKeySpec;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 public class ChatBotUtil {
     private static String secretKey = "V3FZRWpSVWR0RVdkUUJ5UGFncFNGUVRRcUFUVUxhR1g=";
     private static String apiUrl = "https://djs5uhrnzp.apigw.ntruss.com/custom/v1/" +
             "10482/9393e4cd80ca56d7f520ce8b00f3ac6ae99f4c19da88625de8bfb4c4fd32a113";
 
 
-    public static String chat(String txt) throws IOException {
-        URL url = new URL(apiUrl);
+    public static String chat(String txt) {
         String chatMessage = "";
-        String message =  getReqMessage(txt);
+        String message = getReqMessage(txt);
         String encodeBase64String = makeSignature(message, secretKey);
-        System.out.println(message);
-        System.out.println(encodeBase64String);
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json;UTF-8");
-        con.setRequestProperty("X-NCP-CHATBOT_SIGNATURE", encodeBase64String);
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.write(message.getBytes("UTF-8"));
-        wr.flush();
-        wr.close();
-        int responseCode = con.getResponseCode();
-        System.out.println("responseCode:"+responseCode);
-        BufferedReader br;
-        if(responseCode==200) { // 정상 호출
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            con.getInputStream()));
-            String decodedString;
-            String jsonString = "";
-            while ((decodedString = in.readLine()) != null) {
-                jsonString = decodedString;
-            }
-            //chatbotMessage = decodedString;
 
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("X-NCP-CHATBOT_SIGNATURE", encodeBase64String);
+
+        HttpEntity<String> entity = new HttpEntity<>(message, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, entity, String.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            String jsonString = response.getBody();
             JSONParser jsonparser = new JSONParser();
             try {
-                JSONObject json = (JSONObject)jsonparser.parse(jsonString);
-                JSONArray bubblesArray = (JSONArray)json.get("bubbles");
-                JSONObject bubbles = (JSONObject)bubblesArray.get(0);
-                JSONObject data = (JSONObject)bubbles.get("data");
-                String description = "";
-                description = (String)data.get("description");
-                chatMessage = description;
+                JSONObject json = (JSONObject) jsonparser.parse(jsonString);
+                JSONArray bubblesArray = (JSONArray) json.get("bubbles");
+                JSONObject bubbles = (JSONObject) bubblesArray.get(0);
+                JSONObject data = (JSONObject) bubbles.get("data");
+                chatMessage = (String) data.get("description");
             } catch (Exception e) {
-                System.out.println("error");
                 e.printStackTrace();
             }
-            in.close();
-        } else {  // 에러 발생
-            System.out.println("Error");
-            chatMessage = con.getResponseMessage();
+        } else {
+            chatMessage = response.getBody();
         }
-        System.out.println("REsult:"+chatMessage);
         return chatMessage;
     }
 
